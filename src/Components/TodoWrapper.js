@@ -19,10 +19,16 @@ const TodoWrapper = () => {
     useEffect(() => {
         if(todos.length !== 0){
             setShowhide({display: "none"});
+        }else{
+            setShowhide({display: "flex"});
         }
-    })
+    }, [todos.length])
 
     const deleteTodo = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    }
+
+    const completeTodo = (id) => {
         setTodos(todos.filter(todo => todo.id !== id));
     }
 
@@ -36,7 +42,7 @@ const TodoWrapper = () => {
                 </div>
 
                 {todos.map((todo, index) => (
-                    <Todos task={todo} key={index} deleteTodo={deleteTodo} />
+                    <Todos task={todo} key={index} deleteTodo={deleteTodo} completeTodo={completeTodo} />
                 ))}
 
                 <TodoForm addTodos={addTodo} />
